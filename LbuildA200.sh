@@ -188,6 +188,15 @@ configEmmcKernelArgs() {
 	fi
 }
 
+configEmmcKernelArgs() {
+	if [ "$DDR512M" == "yes" ]; then
+		export CMDLINE="console=ttyO2,115200n8 androidboot.console=ttyO2 vt.global_cursor_default=0  mem=456M@0x80000000 init=/init vram=10M omapfb.vram=0:6M"
+	else
+		export CMDLINE="console=ttyO2,115200n8 androidboot.console=ttyO2 vt.global_cursor_default=0 init=/init vram=64M omapfb.vram=0:16M omapdss.def_disp=hdmi "
+		export REC_CMDLINE="console=ttyO2,115200n8 androidboot.console=ttyO2 vt.global_cursor_default=0 init=/init vram=32M omapfb.vram=0:16M omapdss.def_disp=hdmi omapdss.hdmi_options=1280x720"
+	fi
+}
+
 build_a_boot() {
 	if [ -e $PRODUCT_OUT/emmc_appsboot.mbn ]; then
 	    rm $PRODUCT_OUT/emmc_appsboot.mbn	
